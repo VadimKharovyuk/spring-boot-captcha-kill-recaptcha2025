@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section class="review-form-section">
+    <h2>Залишити відгук — WebCraft Studio</h2>
+
+    <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <form th:action="@{/reviews/create}" th:object="${createDto}" method="post" id="reviewForm" class="review-form">
+
+        <div class="form-group">
+            <label for="clientName">Ваше ім'я *</label>
+            <input type="text" id="clientName" th:field="*{clientName}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="companyName">Компанія *</label>
+            <input type="text" id="companyName" th:field="*{companyName}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">Оцінка *</label>
+            <select id="rating" th:field="*{rating}" required>
+                <option value="">Оберіть оцінку</option>
+                <option value="5">5 - Відмінно</option>
+                <option value="4">4 - Добре</option>
+                <option value="3">3 - Нормально</option>
+                <option value="2">2 - Погано</option>
+                <option value="1">1 - Жахливо</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="testimonialText">Ваш відгук *</label>
+            <textarea id="testimonialText" th:field="*{testimonialText}" rows="5" required></textarea>
+        </div>
+
+        <div style="display: none; position: absolute; left: -9999px;">
+            <input type="text" name="honeypot_website" id="honeypot_website" autocomplete="off" tabindex="-1">
+            <input type="text" name="honeypot_phone" id="honeypot_phone" autocomplete="off" tabindex="-1">
+        </div>
+        <!-- MATH CAPTCHA SECTION -->
+        <div class="form-group captcha-section">
+            <label class="captcha-label">Перевірка безпеки</label>
+
+            <label id="captcha-question" style="margin-bottom: 1rem;">
+                <!-- Задача буде вставлена JavaScript -->
+            </label>
+            <input type="text"
+                   id="captcha-answer"
+                   name="captcha_answer"
+                   placeholder="Введіть відповідь"
+                   autocomplete="off"
+                   required>
+            <span class="captcha-helper-text">Розв'яжіть просту задачу для захисту від спаму</span>
+            <div class="captcha-button-group">
+                <button type="button"
+                        id="refresh-captcha">
+                    🔄 Нове завдання
+                </button>
+            </div>
+        </div>
+        <button type="submit" id="submitBtn" class="btn-submit">
+            <span id="btnText">Надіслати відгук</span>
+        </button>
+
+    </form>
+
+
+</section>
+</body>
+</html>
